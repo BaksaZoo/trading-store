@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>hu.baksa</groupId>
-	<artifactId>trading.auth</artifactId>
+	<artifactId>store</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>trading.auth</name>
 	<description>Demo project for Spring Boot</description>
