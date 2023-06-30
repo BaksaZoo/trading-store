@@ -1,18 +1,15 @@
 package hu.baksa.trading.store.api.rest.product;
 
-import hu.baksa.trading.core.model.Product;
 import hu.baksa.trading.store.api.rest.product.request.SaveProductRequest;
 import hu.baksa.trading.store.api.rest.product.response.ProductResponse;
 import hu.baksa.trading.store.api.rest.product.response.SaveProductResponse;
 import hu.baksa.trading.store.service.ProductService;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequiredArgsConstructor
@@ -27,11 +24,7 @@ public class ProductController {
 
     @GetMapping(value = "/api/product/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ProductResponse> get(@PathVariable("id") Long id) {
-        try {
-            return ResponseEntity.ok(productService.getById(id));
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(productService.getById(id));
     }
 
     @PostMapping(value = "/api/product", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -50,20 +43,12 @@ public class ProductController {
 
     @PatchMapping(value = "/api/product/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SaveProductResponse> patch(@PathVariable("id") Long id, @RequestBody SaveProductRequest updatedProduct) {
-        try {
-            return ResponseEntity.ok(productService.updateProductById(id, updatedProduct));
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(productService.updateProductById(id, updatedProduct));
     }
 
     @DeleteMapping("/api/product/{id}")
     public ResponseEntity delete(@PathVariable("id") Long id) {
-        try {
-            productService.deleteById(id);
-            return ResponseEntity.noContent().build();
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
-        }
+        productService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }
