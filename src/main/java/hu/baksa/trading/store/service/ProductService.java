@@ -18,6 +18,7 @@ import java.util.NoSuchElementException;
 @RequiredArgsConstructor
 public class ProductService {
 
+    private static final String NO_PRODUCT_BY_ID = "No product with id: %s";
     private final ProductRepository productRepository;
 
     public List<ProductResponse> getAllProducts(){
@@ -32,14 +33,15 @@ public class ProductService {
     }
 
     public ProductResponse getById(Long id) throws NoSuchElementException {
-        Product product = productRepository.findById(id).orElseThrow();
+        Product product = productRepository.findById(id).orElseThrow(()
+                -> new NoSuchElementException(String.format(NO_PRODUCT_BY_ID, id)));
         return ProductMapper.INSTANCE.toProductResponse(product);
     }
 
     @Transactional
     public SaveProductResponse updateProductById(Long id, SaveProductRequest updatedProduct) throws NoSuchElementException {
         if (!productRepository.existsById(id)){
-            throw new NoSuchElementException(String.format("No product with id %s", id));
+            throw new NoSuchElementException(String.format(NO_PRODUCT_BY_ID, id));
         }
         Product product = ProductMapper.INSTANCE.toProduct(updatedProduct);
         product.setId(id);
@@ -49,7 +51,7 @@ public class ProductService {
     @Transactional
     public void deleteById(Long id) throws NoSuchElementException {
         if (!productRepository.existsById(id)){
-            throw new NoSuchElementException(String.format("No product with id %s", id));
+            throw new NoSuchElementException(String.format(NO_PRODUCT_BY_ID, id));
         }
         productRepository.deleteById(id);
     }
