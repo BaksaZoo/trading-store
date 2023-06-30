@@ -1,6 +1,6 @@
 package hu.baksa.trading.store.api.rest;
 
-import hu.baksa.trading.store.model.Product;
+import hu.baksa.trading.core.model.Product;
 import hu.baksa.trading.store.service.ProductService;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;

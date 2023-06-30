@@ -1,6 +1,6 @@
 package hu.baksa.trading.store.service;
 
-import hu.baksa.trading.store.model.Product;
+import hu.baksa.trading.core.model.Product;
 import hu.baksa.trading.store.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
