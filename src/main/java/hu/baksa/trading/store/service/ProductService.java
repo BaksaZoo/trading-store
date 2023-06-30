@@ -1,6 +1,10 @@
 package hu.baksa.trading.store.service;
 
 import hu.baksa.trading.core.model.Product;
+import hu.baksa.trading.store.api.rest.product.request.SaveProductRequest;
+import hu.baksa.trading.store.api.rest.product.response.ProductResponse;
+import hu.baksa.trading.store.api.rest.product.response.SaveProductResponse;
+import hu.baksa.trading.store.api.rest.product.mapper.ProductMapper;
 import hu.baksa.trading.store.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,31 +20,29 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public List<Product> getAllProducts(){
-        return productRepository.findAll();
+    public List<ProductResponse> getAllProducts(){
+        List<Product> products = productRepository.findAll();
+        return products.stream().map(ProductMapper.INSTANCE::toProductResponse).toList();
     }
 
     @Transactional
-    public Product saveProduct(Product newProduct){
-        return productRepository.save(newProduct);
+    public SaveProductResponse saveProduct(SaveProductRequest newProduct){
+        Product product = productRepository.save(ProductMapper.INSTANCE.toProduct(newProduct));
+        return ProductMapper.INSTANCE.toSaveProductResponse(product);
+    }
+
+    public ProductResponse getById(Long id) throws NoSuchElementException {
+        Product product = productRepository.findById(id).orElseThrow();
+        return ProductMapper.INSTANCE.toProductResponse(product);
     }
 
     @Transactional
-    public Product saveProductAsNew(Product newProduct) {
-        newProduct.setId(null);
-        return saveProduct(newProduct);
-    }
-
-    public Product getById(Long id) throws NoSuchElementException {
-        return productRepository.findById(id).orElseThrow();
-    }
-
-    @Transactional
-    public Product updateProductById(Long id, Product updatedProduct) throws NoSuchElementException {
+    public SaveProductResponse updateProductById(Long id, SaveProductRequest updatedProduct) throws NoSuchElementException {
         if (!productRepository.existsById(id)){
             throw new NoSuchElementException(String.format("No product with id %s", id));
         }
-        updatedProduct.setId(id);
+        Product product = ProductMapper.INSTANCE.toProduct(updatedProduct);
+        product.setId(id);
         return saveProduct(updatedProduct);
     }
 
