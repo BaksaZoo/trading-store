@@ -1,8 +1,8 @@
 package hu.baksa.trading.store.api.rest.product;
 
-import hu.baksa.trading.store.api.rest.product.request.SaveProductRequest;
-import hu.baksa.trading.store.api.rest.product.response.ProductResponse;
-import hu.baksa.trading.store.api.rest.product.response.SaveProductResponse;
+import hu.baksa.trading.core.api.rest.product.request.SaveProductRequest;
+import hu.baksa.trading.core.api.rest.product.response.ProductResponse;
+import hu.baksa.trading.core.api.rest.product.response.SaveProductResponse;
 import hu.baksa.trading.store.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;

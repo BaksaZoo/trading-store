@@ -1,10 +1,10 @@
 package hu.baksa.trading.store.service;
 
 import hu.baksa.trading.core.model.Product;
-import hu.baksa.trading.store.api.rest.product.request.SaveProductRequest;
-import hu.baksa.trading.store.api.rest.product.response.ProductResponse;
-import hu.baksa.trading.store.api.rest.product.response.SaveProductResponse;
-import hu.baksa.trading.store.api.rest.product.mapper.ProductMapper;
+import hu.baksa.trading.core.api.rest.product.request.SaveProductRequest;
+import hu.baksa.trading.core.api.rest.product.response.ProductResponse;
+import hu.baksa.trading.core.api.rest.product.response.SaveProductResponse;
+import hu.baksa.trading.core.api.rest.product.mapper.ProductMapper;
 import hu.baksa.trading.store.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
